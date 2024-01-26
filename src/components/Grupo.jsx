@@ -8,7 +8,8 @@ import { URL_GRUPOS} from '../utils/config';
 export const Grupo = () => {
 
 
-	const url = "https://lahornera.ar/AmaliaApi/Grupo";
+	
+
 	const navigate = useNavigate();
 	const [listaGrupos, setListaGrupos] = useState(null);
 

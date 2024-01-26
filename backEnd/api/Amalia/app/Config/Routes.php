@@ -53,3 +53,11 @@ $routes->get('/', 'Home::index');
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
+
+
+
+$routes->get( 'Grupo', 'GrupoController::Get');
+$routes->post( 'Grupo', 'GrupoController::Set');
+
+$routes->get( 'Item', 'ItemController::Get');
+$routes->post( 'Item', 'ItemController::Set');
