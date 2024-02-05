@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 
-import { URL_GRUPOS} from '../utils/config';
+import { URL_GRUPOS } from '../utils/config';
 
 
 export const Grupo = () => {
 
 
-	
+
 
 	const navigate = useNavigate();
 	const [listaGrupos, setListaGrupos] = useState(null);
@@ -152,6 +152,9 @@ export const Grupo = () => {
 								<div className="col col-sm-6">
 									<div className="card my-5">
 										<div className="card-body">
+											<div className="text-center">
+												<h2>Editando Grupo.</h2>
+											</div>
 											<form className="form form-horizontal form-theme">
 												<fieldset>
 													<div className="row my-3">

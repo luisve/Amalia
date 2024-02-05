@@ -3,13 +3,17 @@ import Logo from '../logook.png';
 
 
 import { URL_ITEMS } from '../utils/config';
+import icoTel from '../images/tel-icon.png';
+import icoWha from '../images/wha-icon.png';
+
+
 
 export const Home = () => {
 
 
+
 	const [listaItems, setListaItems] = useState(null);
 	const [listaGrupos, setListaGrupos] = useState(null);
-
 
 
 
@@ -46,15 +50,25 @@ export const Home = () => {
 					listaItems.length > 0
 						?
 						<div className="container">
-							<div className="m-5"><img src={Logo} alt='logo' /></div>
+							<div className="text-center">
+								<img src={Logo} alt='logo' className='img m-5' />
+							</div>
 							<div className="row text-center">
 								<h3>
-									Amalia Pizzería<br />
-									470160
+									Amalia Pizzería
+									<br />
+									<div className='row'>
+										<div className='ico col-6 text-end'><img src={icoTel} alt='Telefono' /></div>
+										<div className='texto col-6 text-start'><span>343-4070160</span></div>
+									</div>
+									<div className='row'>
+										<div className='ico col-6 text-end'><img src={icoWha} alt='Whatsapp' /></div>
+										<div className='texto col-6 text-start'><span>343-5251159</span></div>
+									</div>
 								</h3>
 							</div>
 
-							<div className="accordion" id="accordionExample">
+							<div className="accordion home" id="accordionExample">
 								{
 									listaGrupos.map((grupo, indexGrupo) => {
 										return (
@@ -71,12 +85,26 @@ export const Home = () => {
 															listaItems.map((item, indexItem) => {
 																return (
 																	(item.IdGrupo === grupo.IdGrupo) &&
-																	<div className="card my-5" key={indexItem}>
+																	<div className="card my-5 text-center" key={indexItem}>
+																		{
+																			item.HayStock === "0" &&
+																			<div className='agotado opacity-50 text-nowrap text-center'>AGOTADO</div>
+																		}
 																		<div className="card-header fw-bold">
 																			{item.Nombre}
 																		</div>
 																		<div className="card-body"><p>{item.Descripcion}</p></div>
-																		<div className="card-footer text-end">$ {Number(item.Precio).toFixed(2)}</div>
+																		<div className="card-footer text-end">
+																			{
+																				item.HayStock === "1"
+																					?
+																					<>
+																						$ {Number(item.Precio).toFixed(2)}
+																					</>
+																					:
+																					"_"
+																			}
+																		</div>
 																	</div>
 																)
 

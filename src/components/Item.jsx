@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 
-import {URL_GRUPOS, URL_ITEMS} from '../utils/config';
+import { URL_GRUPOS, URL_ITEMS } from '../utils/config';
 
 export const Item = () => {
 
@@ -20,8 +20,10 @@ export const Item = () => {
 	const [descripcion, setDescripcion] = useState("");
 	const [id, setId] = useState(0);
 	const [precio, setPrecio] = useState(0);
+	const [hayStock, setHayStock] = useState(1);
 
 
+	/** Se obtiene el listado de grupos */
 	useEffect(() => {
 		if (listaGrupos === null) {
 			fetch(URL_GRUPOS)
@@ -29,6 +31,7 @@ export const Item = () => {
 					switch (response.status) {
 						case 200: response.json().then((lista) => {
 							setListaGrupos(lista);
+							setIdGrupo(lista[0].Id);
 						}); break;
 						case 401: break;
 						default: break;
@@ -41,7 +44,7 @@ export const Item = () => {
 
 
 
-
+	/** Se obtiene la lista de items */
 	useEffect(() => {
 		if (listaItems === null) {
 			fetch(URL_ITEMS)
@@ -71,6 +74,7 @@ export const Item = () => {
 		data.append("IdGrupo", idGrupo);
 		data.append("Descripcion", descripcion);
 		data.append('Precio', precio);
+		data.append('HayStock', hayStock);
 		HEADER_POST.body = data;
 		fetch(URL_ITEMS, HEADER_POST)
 			.then((response) => {
@@ -89,6 +93,13 @@ export const Item = () => {
 			.finally(() => { });
 	}
 
+	/*
+		const handleClickStock = (valor) => {
+			setHayStock(valor);
+	console.log( "stock " + hayStock );
+			handleClicAgregar();
+		}
+	*/
 
 	const handleClicAGrupos = () => {
 		navigate('/admin/grupos');
@@ -102,17 +113,23 @@ export const Item = () => {
 	}
 
 
+
 	const handleClicItem = (e) => {
 		setId(e.dataset.id);
 		setNombre(e.dataset.nombre);
 		setIdGrupo(e.dataset.idgrupo);
+		setHayStock(e.dataset.haystock);
+		setDescripcion(e.dataset.descripcion)
+		setPrecio(e.dataset.precio);
 		setVerListado(false);
 	}
+
 
 
 	const handleClicVolver = () => {
 		setVerListado(true);
 	}
+
 
 
 	return (
@@ -143,10 +160,12 @@ export const Item = () => {
 															<li
 																onClick={(e) => handleClicItem(e.target)}
 																className="list-group-item"
+																data-haystock={item.HayStock}
 																data-id={item.Id}
 																data-nombre={item.Nombre}
 																data-idgrupo={item.IdGrupo}
 																data-precio={item.Precio}
+																data-descripcion={item.Descripcion}
 																key={index} >{item.NombreGrupo + ' ' + item.Nombre + ' ' + item.Precio}</li>
 														)
 													})
@@ -171,16 +190,17 @@ export const Item = () => {
 								<h3>Cargando . . . </h3>
 							</div>
 						</>
-
 					:
-
 					<>
 						<div className="container">
 							<div className="row justify-content-md-center">
 								<div className="col col-sm-6">
 									<div className="card my-5">
 										<div className="card-body">
-											<form className="form form-horizontal form-theme">
+											<div className="text-center">
+												<h2>Editando Item.</h2>
+											</div>
+											<form className="form form-horizontal">
 												<fieldset>
 													<div className="row my-3">
 														<label htmlFor="Grupo" className="col-md-4 control-label">Grupo</label>
@@ -250,11 +270,29 @@ export const Item = () => {
 											<div className="row">
 												<button
 													onClick={() => handleClicAgregar()}
-													className='btn btn-primary btn-block my-3'>Agregar</button>
+													className='btn btn-primary btn-block my-3'>
+													{id === 0 ? "Agregar" : "Actualizar"}
+												</button>
+												{
+													id !== 0 &&
+														(hayStock === "1")
+														?
+														<button
+															onClick={() => setHayStock("0")}
+															className='btn btn-primary btn-block my-3 btn-danger'>
+															No hay Mas
+														</button>
+														:
+														<button
+															onClick={() => setHayStock("1")}
+															className='btn btn-primary btn-block my-3 btn-success'>
+															Hay Stock
+														</button>
+
+												}
 												<button
 													onClick={() => handleClicVolver()}
 													className='btn btn-secondary btn-block my-3'>Volver</button>
-
 											</div>
 										</div>
 									</div>

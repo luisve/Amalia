@@ -13,38 +13,64 @@ code {
     monospace;
 }
 */
-body {	background: url(fondo.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-.card {
-	background: url(fondo.jpg) no-repeat center center fixed; 
+body {
+	background: url(fondo.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 }
 
-.card-header,
-.card-footer {
+.card {
+	background: url(fondo.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+div.home .card-header,
+div.home .card-footer {
 	font-family: 'Courgette', cursive;
-	color: red;
 	font-size: 2rem;
+	color: green;
 	text-shadow: 2px 2px #0000003b;
 }
 
-.card-body {
+div.home .card-footer {
+	color: black;
+}
+
+div.home .card-body {
 	font-family: 'Courgette', cursive;
 	font-size: 1rem;
 }
+
 .accordion-item {
-    background-color: #fff3;
+	background-color: #fff3;
 }
+
 .accordion-button:not(.collapsed) {
-     background-color: #e7f1ff66;
+	background-color: #e7f1ff66;
 }
+
 .accordion-button {
-    background-color: #fff3;
+	background-color: #fff3;
+}
+
+.row .ico img {
+	max-width: 24px;
+}
+.agotado {
+	color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: bold;
+    transform: rotate(-30deg);
+    height: 100%;
+    width: 100%;
+    font-size: 3rem;
+    opacity: .5;
+    line-height: 10rem;
 }
